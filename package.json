@@ -11,13 +11,8 @@
   "types": "dist/types.d.ts",
   "isLibrary": true,
   "scripts": {
-    "watch:library": "parcel watch",
-    "build:library": "parcel build",
-    "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
-    "serve": "vitepress serve docs",
-    "analyze": "vite build --config analyze.config.js",
-    "publish:library": "npm publish --access public",
+    "watch": "parcel watch",
+    "build": "parcel build",
     "lint": "eslint --ext .js,.vue,.ts --ignore-path .gitignore --fix lib"
   },
   "peerDependencies": {
