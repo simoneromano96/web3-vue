@@ -2,7 +2,7 @@
   "name": "web3-vue",
   "version": "0.0.0",
   "description": "web3 vue",
-  "source": "src/index.ts",
+  "source": "lib/index.ts",
   "files": [
     "dist"
   ],
