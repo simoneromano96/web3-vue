@@ -1,0 +1,37 @@
+{
+  "name": "web3-vue",
+  "version": "0.0.0",
+  "description": "web3 vue",
+  "source": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/cjs.js",
+  "module": "dist/esm.js",
+  "types": "dist/types.d.ts",
+  "isLibrary": true,
+  "scripts": {
+    "watch:library": "parcel watch",
+    "build:library": "parcel build",
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "serve": "vitepress serve docs",
+    "analyze": "vite build --config analyze.config.js",
+    "publish:library": "npm publish --access public",
+    "lint": "eslint --ext .js,.vue,.ts --ignore-path .gitignore --fix lib"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.16"
+  },
+  "devDependencies": {
+    "@parcel/packager-ts": "^2.0.1",
+    "@parcel/transformer-typescript-types": "^2.0.1",
+    "@parcel/transformer-vue": "^2.0.1",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-vue": "^8.1.1",
+    "parcel": "^2.0.1",
+    "prettier": "^2.5.0",
+    "typescript": "^4.5.2"
+  }
+}
