@@ -8,12 +8,12 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { formatEther } from "@ethersproject/units"
-import { initMetamask } from "../.."
-const { provider, signer } = await initMetamask()
-console.log("🚀 ~ file: MetamaskInner.vue ~ line 11 ~ provider, signer", provider, signer)
-// const accounts = await provider.send("eth_accounts", []);
-const accounts = await provider.send("eth_requestAccounts", [])
-console.log("🚀 ~ file: MetamaskInner.vue ~ line 18 ~ accounts", accounts)
+import { Connector, ConnectorEvents, ProviderTypes } from "web3-core/lib/index"
+
+const connector = new Connector(ProviderTypes.Metamask)
+
+const { provider, signer } = await connector.initProvider()
+// await provider.send("eth_requestAccounts", [])
 const blockNumber = ref(0)
 const getBlockNumber = async () => {
   const lastBlockNumber = await provider.getBlockNumber()
@@ -29,4 +29,10 @@ const getBalance = async () => {
   const lastBalance = await signer.getBalance()
   balance.value = formatEther(lastBalance)
 }
+
+connector.addEventListener(ConnectorEvents.AccountsChanged, (event) => {
+  console.log(event);
+  address.value = (event as unknown as any).detail[0]
+})
+
 </script>

@@ -6,4 +6,5 @@
 </template>
 
 <script setup lang="ts">
+import MetamaskInner from "./MetamaskInner.vue"
 </script>

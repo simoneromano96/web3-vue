@@ -18,7 +18,11 @@
     "docs:serve": "vitepress serve docs",
     "lint": "eslint --ext .js,.vue,.ts --ignore-path .gitignore --fix lib"
   },
+  "dependencies": {
+    "web3-core": "file:../web3-core"
+  },
   "peerDependencies": {
+    "@ethersproject/units": "^5.5.0",
     "vue": "^3.2.16"
   },
   "devDependencies": {
