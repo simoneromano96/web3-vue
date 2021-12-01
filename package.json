@@ -22,10 +22,12 @@
     "web3-core": "file:../web3-core"
   },
   "peerDependencies": {
+    "@ethersproject/address": "^5.5.0",
     "@ethersproject/units": "^5.5.0",
     "vue": "^3.2.16"
   },
   "devDependencies": {
+    "@ethersproject/providers": "^5.5.1",
     "@parcel/packager-ts": "^2.0.1",
     "@parcel/transformer-typescript-types": "^2.0.1",
     "@parcel/transformer-vue": "^2.0.1",

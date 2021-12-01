@@ -1,7 +1,8 @@
 <template>
-  <h1>Outer</h1>
   <suspense>
-    <metamask-inner />
+    <metamask-inner>
+      <slot> </slot>
+    </metamask-inner>
   </suspense>
 </template>
 
