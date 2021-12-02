@@ -6,6 +6,7 @@
   <button @click="getBalance">Get account balance [Current: {{ balance }}]</button>
   <button @click="signMessage">Sign a message</button>
   <p>Signed message: {{signedMessage}}</p>
+  <p>Network chain id: {{network?.chainId}}</p>
 </template>
 
 <script setup lang="ts">
@@ -14,11 +15,13 @@ import { ref, inject } from "vue"
 import { formatEther } from "@ethersproject/units"
 import { getAddress } from "@ethersproject/address"
 import { ConnectorEvents } from "web3-core/lib"
-import { ConnectorKey, ProviderKey, SignerKey } from "../../types/symbols"
+import { AddressKey, ConnectorKey, NetworkKey, ProviderKey, SignerKey } from "../../types/symbols"
 
 const provider = inject(ProviderKey)
 const signer = inject(SignerKey)
 const connector = inject(ConnectorKey)
+const address = inject(AddressKey)
+const network = inject(NetworkKey)
 
 const blockNumber = ref(0)
 const getBlockNumber = async () => {
@@ -39,12 +42,6 @@ const activate = async () => {
     console.error(error)
   }
 }
-
-const address = ref("")
-connector?.eventEmitter.on(ConnectorEvents.AccountsChanged, (accounts) => {
-  console.log(accounts);
-  address.value = getAddress(accounts[0])
-})
 
 const signedMessage = ref("")
 const signMessage = async () => {
