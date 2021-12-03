@@ -1,6 +1,6 @@
 <script setup>
 // import CustomComponent from '../lib/components/HelloWorld.vue'
-import ConnectorProvider from '../lib/components/ConnectorProvider/ConnectorProvider.vue'
+import {ConnectorProvider} from '../lib'
 import TestSign from '../lib/components/generic/TestSign.vue'
 </script>
 

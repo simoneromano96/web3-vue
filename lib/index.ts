@@ -1,3 +1,10 @@
-import { default as HelloWorld } from "./components/HelloWorld.vue"
+import process from "process"
+import {Buffer} from "buffer"
 
-export { HelloWorld }
+import { default as ConnectorProvider } from "./components/ConnectorProvider/ConnectorProvider.vue"
+
+window.global = window
+window.process = process
+window.Buffer = Buffer
+
+export { ConnectorProvider }

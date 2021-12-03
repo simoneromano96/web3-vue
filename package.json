@@ -19,6 +19,8 @@
     "lint": "eslint --ext .js,.vue,.ts --ignore-path .gitignore --fix lib"
   },
   "dependencies": {
+    "buffer": "^6.0.3",
+    "process": "^0.11.10",
     "web3-core": "file:../web3-core"
   },
   "peerDependencies": {
