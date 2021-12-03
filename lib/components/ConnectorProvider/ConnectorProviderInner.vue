@@ -3,11 +3,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, PropType } from "vue"
+import { PropType, toRefs } from "vue"
+import type { Network } from "@ethersproject/providers";
+
+import { provide, reactive, readonly } from "vue"
+
 import { getAddress } from "@ethersproject/address"
 import { Connector, ConnectorEvents, ProviderTypes } from "web3-core/lib/index"
 
-import { AddressKey, ConnectorKey, NetworkKey, ProviderKey, SignerKey } from "../../types/symbols"
+import { ConnectorProviderKey } from "./ConnectorProvider"
 
 const props = defineProps({
   providerType: {
@@ -20,24 +24,46 @@ const connector = new Connector(props.providerType)
 
 await connector.initProvider()
 
+if (!connector.provider) {
+  throw new Error("Could not initialize provider")
+}
+
+if (!connector.signer) {
+  throw new Error("Could not initialize signer")
+}
+
 const provider = connector.provider
 const signer = connector.signer
 
+interface ConnectorProviderState {
+  addressList?: string[]
+  network?: Network
+}
+
+// Connector state
+const connectorState = reactive<ConnectorProviderState>({
+  addressList: undefined,
+  network: undefined,
+})
+
 // Handle change of active account.
-const address = ref()
-connector.eventEmitter.on(ConnectorEvents.AccountsChanged, (accounts) => {
-  address.value = getAddress(accounts[0])
+connector.eventEmitter.on(ConnectorEvents.AccountsChanged, (addresses) => {
+  connectorState.addressList = addresses.map(getAddress)
 })
 
 // Handle change of active network.
-const network = ref()
-connector.eventEmitter.on(ConnectorEvents.NetworkChanged, (newNetwork) => {
-  network.value = newNetwork
+connector.eventEmitter.on(ConnectorEvents.NetworkChanged, (network) => {
+  connectorState.network = network
 })
 
-provide(ProviderKey, provider)
-provide(SignerKey, signer)
-provide(ConnectorKey, connector)
-provide(AddressKey, address)
-provide(NetworkKey, network)
+// Make sure the properties are readonly, and deconstruct the properties
+const { addressList, network } = toRefs(readonly(connectorState))
+
+provide(ConnectorProviderKey, {
+  connector,
+  provider,
+  signer,
+  addressList,
+  network,
+})
 </script>
